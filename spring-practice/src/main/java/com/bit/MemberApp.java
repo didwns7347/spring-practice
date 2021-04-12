@@ -4,11 +4,14 @@ import com.bit.member.Grade;
 import com.bit.member.Member;
 import com.bit.member.MemberService;
 import com.bit.member.MemberServiceImpl;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 public class MemberApp {
     public static void main(String[] args){
         AppConfig appConfig=new AppConfig();
-        MemberService memberService= appConfig.memberService();
+        AnnotationConfigApplicationContext applicationContext =
+                new AnnotationConfigApplicationContext(AppConfig.class);
+        MemberService memberService = applicationContext.getBean("memberService",MemberService.class);
         Member member= new Member(1l,"memberA", Grade.VIP);
 
         memberService.join(member);
